@@ -11,11 +11,11 @@ class CompanyController {
 		if(!registered) {
 			console.log('[verifica cadastro] NÃO REGISTRADO')
 			await PreRegister.create(profile)
-			return res.redirect('/')
+			return res.send('Não registrado')
 		}
 
 		if(registered && !registered['processed'])
-			return res.redirect('/')
+			return res.json({error: 'Não processado', profile})
 		
 		return res.redirect('/logged')		
 	}

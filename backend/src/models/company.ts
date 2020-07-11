@@ -1,7 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose'
 import { ICompany } from '../services/interfaces'
 
-
 const required = true
 
 const CompanySchema: Schema = new Schema({

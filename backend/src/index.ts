@@ -2,7 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import 'dotenv/config'
 
-import { AuthorizeCompany, AuthCallback} from './services/auth'
+import { Auth } from './routes'
 
 const PORT = process.env.SERVER_PORT 
 const DB_USER = process.env.DB_USER
@@ -15,13 +15,8 @@ mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASS}@cluster0.vtgdq.mongodb.net
 
 const app = express()
 
-app.get('/', (req, res) => {
-	res.send('sucesso')
-})
-
 //Spotify auth
-app.get('/authorize', AuthorizeCompany)
-app.get('/callback', AuthCallback)
+app.use('/auth', Auth)
 
 app.listen(PORT, () => console.log('\nServidor ligado na porta', PORT))
 
