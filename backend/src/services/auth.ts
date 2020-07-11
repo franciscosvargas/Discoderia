@@ -2,6 +2,9 @@ import { Request, Response } from 'express'
 import axios from 'axios'
 import qs from 'qs'
 
+import Company from '../controllers/company'
+
+import { ISpotifyProfile } from '../services/interfaces'
 
 export function AuthorizeCompany(req: Request, res: Response) {
 
@@ -27,7 +30,22 @@ export async function AuthCallback(req: Request, res: Response) {
 
 	const { data } = await axios.post('https://accounts.spotify.com/api/token', body)
 
-	const { access_token, expires_in, refresh_token} = data
+	const { access_token, refresh_token} = data
 
-	return res.send()
+	const config = {
+		headers: {
+			'Authorization': 'Bearer ' + access_token
+		}
+	}
+
+	const response = await axios.get('https://api.spotify.com/v1/me', config)
+
+	const profile: ISpotifyProfile = {
+		username: response.data.id,
+		email: response.data.email,
+		token: access_token,
+		refreshToken: refresh_token
+	}
+
+	Company.processAuth(res, profile)
 }
