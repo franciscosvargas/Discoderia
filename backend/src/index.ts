@@ -15,8 +15,11 @@ mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASS}@cluster0.vtgdq.mongodb.net
 
 const app = express()
 
+app.use(express.json())
+
 //Spotify auth
 app.use('/auth', Auth)
+
 
 app.listen(PORT, () => console.log('\nServidor ligado na porta', PORT))
 

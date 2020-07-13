@@ -1,4 +1,4 @@
-import { Response } from 'express'
+import { Request, Response } from 'express'
 
 import { ISpotifyProfile } from '../services/interfaces'
 
@@ -9,7 +9,6 @@ class CompanyController {
 		const registered = await PreRegister.findOne({ username: profile.username })
 
 		if(!registered) {
-			console.log('[verifica cadastro] NÃO REGISTRADO')
 			await PreRegister.create(profile)
 			return res.send('Não registrado')
 		}
@@ -18,6 +17,10 @@ class CompanyController {
 			return res.json({error: 'Não processado', profile})
 		
 		return res.redirect('/logged')		
+	}
+
+	async create(req: Request, res: Response) {
+		return res.send(req.body)
 	}
 }
 
