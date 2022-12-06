@@ -9,7 +9,7 @@
     "dotenv": "8.2.0",
     "express": "4.17.1",
     "mongoose": "^5.9.23",
-    "qs": "6.9.4"
+    "qs": "6.7.3"
   },
   "devDependencies": {
     "@types/express": "4.17.7",
